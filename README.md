@@ -55,6 +55,10 @@ flowchart LR
   AdminAction --> AdminList
 
 ## 4. データモデル（ER図）
+- 詳細な設計検討・決定理由：[DB設計とポイント利用の設計方針](notes/db-and-point-usage.md)
+
+```mermaid
+erDiagram
 erDiagram
   USER ||--o{ PHOTO_POST : "投稿する"
   SPOT ||--o{ PHOTO_POST : "対象スポット"
