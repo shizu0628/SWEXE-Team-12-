@@ -1,29 +1,25 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "Swexe Team 12" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Swexe Team 12">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<body>
+    <% if current_user %>
+      <header style="background-color: #f4f4f4; padding: 12px 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <strong>ログイン中:</strong> <%= current_user.name %>
+          （ロール: <%= current_user.role == "admin" ? "管理者" : "観光客" %>） |
+          <strong>保有ポイント:</strong> <%= current_user.current_points %> pt
+        </div>
+        <div>
+          <%= button_to "ログアウト", logout_path, method: :delete %>
+        </div>
+      </header>
+    <% end %>
 
-    <%= yield :head %>
+    <% if notice %>
+      <p style="color: green; padding: 8px 20px;"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p style="color: red; padding: 8px 20px;"><%= alert %></p>
+    <% end %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
-
-  <body>
-    <%= yield %>
+    <main style="padding: 20px;">
+      <%= yield %>
+    </main>
   </body>
-</html>
