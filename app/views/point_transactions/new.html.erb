@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>ポイントを利用する</h1>
+
+  <% if alert %>
+    <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 16px;">
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <p>現在の保有ポイント: <strong><%= @current_points %> pt</strong></p>
+
+  <%= form_with model: @point_transaction, url: point_transactions_path, local: true do |f| %>
+    <div style="margin-bottom: 16px;">
+      <%= f.label :amount, "利用するポイント数" %><br>
+      <%= f.number_field :amount, min: 1, max: @current_points, required: true %> pt
+    </div>
+
+    <div>
+      <%= f.submit "利用を確定する", data: { turbo_confirm: "入力したポイントを利用しますか？" } %>
+    </div>
+  <% end %>
+
+  <div style="margin-top: 20px;">
+    <%= link_to "履歴一覧へ戻る", point_transactions_path %>
+  </div>
+</div>
