@@ -1,0 +1,9 @@
+<h1><%= @spot.name %></h1>
+
+<p><strong>獲得ポイント：</strong> <%= @spot.reward_points %> pt</p>
+<p><strong>説明：</strong><br><%= @spot.description.presence || "説明はありません" %></p>
+
+<div style="margin-top: 16px;">
+  <%= link_to "このスポットの写真を投稿する", new_photo_post_path(spot_id: @spot.id) %> |
+  <%= link_to "スポット一覧へ戻る", spots_path %>
+</div>

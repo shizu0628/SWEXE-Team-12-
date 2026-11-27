@@ -1,0 +1,33 @@
+<h1>自分の写真投稿・審査状況一覧</h1>
+
+<p>
+  <%= link_to "新しく写真を投稿する", new_photo_post_path %> |
+  <%= link_to "観光スポット一覧へ", spots_path %>
+</p>
+
+<% if @photo_posts.any? %>
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 800px;">
+    <thead>
+      <tr style="background-color: #f4f4f4;">
+        <th>投稿日時</th>
+        <th>観光スポット</th>
+        <th>獲得予定ポイント</th>
+        <th>写真URL</th>
+        <th>審査ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @photo_posts.each do |post| %>
+        <tr>
+          <td><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+          <td><%= post.spot.name %></td>
+          <td><%= post.spot.reward_points %> pt</td>
+          <td><%= link_to truncate(post.image_url, length: 30), post.image_url, target: "_blank", rel: "noopener" %></td>
+          <td><strong><%= post.status %></strong></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>まだ投稿履歴がありません。観光スポット一覧から写真を投稿してみましょう。</p>
+<% end %>
