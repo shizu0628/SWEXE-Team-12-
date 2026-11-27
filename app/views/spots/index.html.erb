@@ -1,0 +1,32 @@
+<h1>観光スポット一覧</h1>
+
+<p>
+  <%= link_to "自分の投稿履歴・審査状況を見る", photo_posts_path %>
+</p>
+
+<% if @spots.any? %>
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 800px;">
+    <thead>
+      <tr style="background-color: #f4f4f4;">
+        <th>スポット名</th>
+        <th>説明</th>
+        <th>獲得ポイント</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @spots.each do |spot| %>
+        <tr>
+          <td><%= link_to spot.name, spot_path(spot) %></td>
+          <td><%= spot.description %></td>
+          <td><strong><%= spot.reward_points %> pt</strong></td>
+          <td>
+            <%= link_to "写真を投稿する", new_photo_post_path(spot_id: spot.id) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>現在登録されている観光スポットはありません。</p>
+<% end %>
